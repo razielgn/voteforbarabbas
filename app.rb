@@ -46,7 +46,6 @@ end
 
 post '/' do
   env['HTTP_X_REAL_IP'] ||= env['REMOTE_ADDR']
-  
   begin
     Address.create :ip => env['HTTP_X_REAL_IP']
     
