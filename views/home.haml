@@ -1,7 +1,7 @@
 !!! 5
 %html
 	%head 
-		%title The ultimate vote
+		%title Your choice
 		:css
 			body {
 				background-color: #ac883b;
@@ -11,12 +11,15 @@
 			#main {
 				margin: 0 auto;
 				text-align: center;
+				padding: 0;
+				height: 100%;
 			}
 			.question {
 				text-shadow: #c9b384 2px 2px 3px;
 				padding-top: 100px;
 				font-size: 4em;
 				color: #412e05;
+				margin-bottom: 50px;
 			}
 			.button {
 				width: 200px;
@@ -28,11 +31,77 @@
 				color: #805906;
 				margin: 20px;
 			}
+			.button:hover {
+				border: 4px solid #412e05;
+				color: #412e05;
+			}
+			table {
+				margin: 0 auto;
+				border-spacing: 0;
+			}
+			.perc {
+				color: #412e05;
+				text-shadow: #c9b384 2px 2px 3px;
+				font-size: 1.7em;
+				font-weight: bold;
+				margin-top: -10px;
+			}
+			.count {
+				color: #412e05;
+				font-weight: bold;
+				font-size: 0.8em;
+			}
+
+			#notice {
+				margin: 0 auto;
+				color: #412e05;
+				padding-top: 30px;
+				text-align: center;
+			}
 			
+			#credits {
+				position: absolute;
+				bottom: 5px;
+				right: 0;
+				left: 0;
+				color: #412e05;
+				margin: 0 auto;
+				text-align: center;
+				font-size: 0.6em;
+				font-weight: bold;
+			}
+			#credits a:link {
+				text-decoration: none;
+				color: inherit;
+			}
+			#credits a:hover {
+				text-decoration: underline;
+			}
 	%body
 		#main
-			%h1.question Who do you choose?
-			%input.button{:id => "b-jesus", :value => "Jesus", :type => "button"}
-			%input.button{:id => "b-barabbas", :value => "Barabbas", :type => "button"}
+			%h1.question Which one do you choose?
 			
-			#hesit
+			%table
+				%tr
+					%form{:action => "/", :method => "POST"}
+						%td
+							%input.button{:value => "Jesus", :type => "submit", :name => "j"}
+						%td
+							%input.button{:value => "Barabbas", :type => "submit", :name => "b"}
+				%tr
+					%td
+						.perc= "#{@jesus_p}%"
+						.count= "(#{@jesus} votes)"
+					%td
+						.perc= "#{@barabbas_p}%"
+						.count= "(#{@barabbas} votes)"
+			
+			#notice= flash[:notice]
+			
+		#credits
+			Code and design by
+			%a{:href => "http://twitter.com/razielgn"}= "Federico Ravasio."
+			= " Idea of"
+			%a{:href => "#"} Luca Parsani
+			&amp;
+			%a{:href => "#"}= "Mauro Vitali."
