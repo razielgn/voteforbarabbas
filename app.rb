@@ -1,7 +1,6 @@
 require 'sinatra'
 require 'sinatra/sequel'
 require 'haml'
-require 'json'
 require 'rack-flash'
 
 enable :sessions
